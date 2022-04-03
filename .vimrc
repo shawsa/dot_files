@@ -8,7 +8,7 @@ set relativenumber
 set number
 
 " Don't ask about writing when opening new file
-set nohidden
+set hidden
 
 augroup numbertoggle
   autocmd!
