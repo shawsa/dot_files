@@ -16,6 +16,13 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 
+" trigger `autoread` when files changes on disk
+      set autoread
+      autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+
+" show file name
+set laststatus=2
+
 " plug - a plugin manager
 call plug#begin()
 
@@ -23,6 +30,17 @@ call plug#begin()
 "# File explorer
 "###############################
 Plug 'preservim/nerdtree'
+
+"###############################
+"# Code completion
+"###############################
+Plug 'davidhalter/jedi-vim'
+
+"###############################
+"# Ale - linting
+"###############################
+Plug 'dense-analysis/ale'
+let g:ale_fixers = {'python': ['autoimport', 'isort']}
 
 "###############################
 "# vim-repl - REPL integration 
@@ -48,15 +66,5 @@ autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
 autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
 let g:repl_position = 3
 
-"###############################
-"# Code completion
-"###############################
-Plug 'davidhalter/jedi-vim'
-
-"###############################
-"# Ale - linting
-"###############################
-Plug 'dense-analysis/ale'
-let g:ale_fixers = {'python': ['autoimport', 'isort']}
 
 call plug#end()
