@@ -23,6 +23,9 @@ augroup END
 " show file name
 set laststatus=2
 
+"Turn on spellcheck for html
+autocmd FileType html setlocal spell
+
 " plug - a plugin manager
 call plug#begin()
 
@@ -72,7 +75,7 @@ let g:pymode_rope = 0
 "###############################
 Plug 'dense-analysis/ale'
 let g:ale_fixers = {
-	\'python': ['autoimport', 'isort'],
+	\'python': ['autoimport', 'black', 'isort'],
     \'html': ['prettier'],
     \'css': ['stylelint']
 	\}
@@ -80,6 +83,13 @@ let g:ale_linters = {
 	\ 'html': ['htmlhint'],
 	\ 'css': ['stylelint'],
 	\}
+let g:ale_python_flake8_options = '--max-line-length=88'
+
+"###############################
+"# vim-slime - REPL integration 
+"###############################
+"Plug 'jpalardy/vim-slime'
+"let g:slime_python_ipython = 1
 
 "###############################
 "# vim-repl - REPL integration 
@@ -97,8 +107,10 @@ let g:repl_predefine_python = {
             \   }
 let g:repl_cursor_down = 1
 "let g:repl_python_automerge = 1
-"let g:repl_ipython_version = '7'
-"let g:repl_output_copy_to_register = "t"
+" For IPython version 8+ use version 7.1
+" See https://github.com/sillybun/vim-repl/issues/148
+let g:repl_ipython_version = '7.1'
+let g:repl_output_copy_to_register = "t"
 nnoremap <leader>r :REPLToggle<Cr>
 nnoremap <leader>e :REPLSendSession<Cr>
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
