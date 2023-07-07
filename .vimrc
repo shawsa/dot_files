@@ -110,7 +110,7 @@ let g:repl_cursor_down = 1
 " For IPython version 8+ use version 7.1
 " See https://github.com/sillybun/vim-repl/issues/148
 let g:repl_ipython_version = '7.1'
-let g:repl_output_copy_to_register = "t"
+let g:repl_output_copy_to_register = "r"
 nnoremap <leader>r :REPLToggle<Cr>
 nnoremap <leader>e :REPLSendSession<Cr>
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
@@ -127,6 +127,11 @@ Plug 'tpope/vim-fireplace'
 "# Fugitive - git plugin
 "###############################
 Plug 'tpope/vim-fugitive'
+
+"###############################
+"# commentary - commands for commenting
+"###############################
+Plug 'tpope/vim-commentary'
 
 
 call plug#end()
