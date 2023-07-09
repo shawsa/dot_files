@@ -3,7 +3,10 @@
 SRC=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 
 #FILE=.bashrc
-for FILE in .bashrc .toprc .vimrc
+
+ipython profile create vim
+
+for FILE in .bashrc .toprc .vimrc .ipython/profile_vim/ipython_config.py .ipython/profile_vim/startup/imports.py
 do
 	if [[ -f ~/$FILE && ! -L ~/$FILE ]]; then
 		echo "$FILE found, creating backup ~/$FILE.backup"
