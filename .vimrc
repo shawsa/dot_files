@@ -94,7 +94,13 @@ let g:ale_python_flake8_options = '--max-line-length=88'
 "###############################
 "# vim-repl - REPL integration 
 "###############################
-Plug 'sillybun/vim-repl'
+"Plug 'sillybun/vim-repl'
+" For IPython version 8+ use version 7.1
+" See https://github.com/sillybun/vim-repl/issues/148
+"let g:repl_ipython_version = '7.1'
+"
+"Actually, I will just fork and fix it myself.
+Plug 'shawsa/vim-repl'
 let g:repl_program = {
             \   'python': 'ipython --profile=vim',
             \   'r': 'R',
@@ -107,9 +113,6 @@ let g:repl_predefine_python = {
             \   }
 let g:repl_cursor_down = 1
 "let g:repl_python_automerge = 1
-" For IPython version 8+ use version 7.1
-" See https://github.com/sillybun/vim-repl/issues/148
-let g:repl_ipython_version = '7.1'
 let g:repl_output_copy_to_register = "r"
 nnoremap <leader>r :REPLToggle<Cr>
 nnoremap <leader>e :REPLSendSession<Cr>
