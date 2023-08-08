@@ -86,6 +86,11 @@ let g:ale_linters = {
 let g:ale_python_flake8_options = '--max-line-length=88'
 
 "###############################
+"# Black - official plugin
+"###############################
+Plug 'psf/black', { 'branch': 'stable' }
+
+"###############################
 "# vim-slime - REPL integration 
 "###############################
 "Plug 'jpalardy/vim-slime'
