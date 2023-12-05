@@ -141,5 +141,12 @@ Plug 'tpope/vim-fugitive'
 "###############################
 Plug 'tpope/vim-commentary'
 
+"###############################
+"# LaTeX
+"###############################
+Plug 'lervag/vimtex'
+syntax enable
+let g:vimtex_compiler_latexmk = {'out_dir' : 'texaux',}
+
 
 call plug#end()
