@@ -148,5 +148,10 @@ Plug 'lervag/vimtex'
 syntax enable
 let g:vimtex_compiler_latexmk = {'out_dir' : 'texaux',}
 
+"###############################
+"# Markdown
+"###############################
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 
 call plug#end()
