@@ -151,6 +151,7 @@ let g:vimtex_compiler_latexmk = {'out_dir' : 'texaux',}
 "###############################
 "# Markdown
 "###############################
+Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 
