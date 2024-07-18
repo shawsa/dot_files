@@ -83,7 +83,7 @@ let g:ale_linters = {
 	\ 'html': ['htmlhint'],
 	\ 'css': ['stylelint'],
 	\}
-let g:ale_python_flake8_options = '--max-line-length=88'
+let g:ale_python_flake8_options = '--max-line-length=88 --extend-ignore=E203'
 
 "###############################
 "# Black - official plugin
