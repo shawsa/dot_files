@@ -1,0 +1,5 @@
+alias python="python3.11"
+alias clearswap="sudo swapoff -a; sudo swapon -a"
+alias uvtest="uv run pytest -vv"
+alias uvcov="uv run coverage report -m && uv run coverage html"
+alias uvtestcov="uvtest && uvcov"

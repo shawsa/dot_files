@@ -119,8 +119,10 @@ let g:repl_predefine_python = {
 let g:repl_cursor_down = 1
 "let g:repl_python_automerge = 1
 let g:repl_output_copy_to_register = "r"
-nnoremap <leader>r :REPLToggle<Cr>
-nnoremap <leader>e :REPLSendSession<Cr>
+"nnoremap <leader>r :REPLToggle<Cr>
+"<leader>r is already used by jedi
+"nnoremap <leader>y :REPLToggle<Cr>
+"nnoremap <leader>e :REPLSendSession<Cr>
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
 autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
@@ -144,7 +146,7 @@ Plug 'tpope/vim-commentary'
 "###############################
 "# LaTeX
 "###############################
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 syntax enable
 let g:vimtex_compiler_latexmk = {'out_dir' : 'texaux',}
 
@@ -153,5 +155,47 @@ let g:vimtex_compiler_latexmk = {'out_dir' : 'texaux',}
 "###############################
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+"###############################
+"# REPL Integration
+"###############################
+Plug 'jpalardy/vim-slime'
+let g:slime_preserve_curpos = 1
+
+let g:slime_python_ipython = 1
+let g:slime_default_config = {"sessionname": "test", "windowname": "testing"}
+let g:slime_dont_ask_default = 1
+
+function ReplStart()
+	"Start a new pane on the right
+	let s:current_window = winnr()
+	execute 'vert rightb term'
+	let s:term_buffer = bufnr()
+	"auto close if the repl is the last window open
+	exe 'autocmd BufEnter <buffer> if (winnr("$") == 1) | call ReplClose() | q! | endif'
+	"start a screen session
+	execute 'sleep 100 m'
+	call term_sendkeys(s:term_buffer, "screen -RR -S " . g:slime_default_config["sessionname"] . " -t " . g:slime_default_config["windowname"] . "\n")
+	execute 'sleep 100 m'
+	"start ipython using uv
+	call term_sendkeys(s:term_buffer, "uv run ipython\n")
+	execute s:current_window . 'wincmd w'
+	unlet s:current_window
+endfunction
+
+function ReplClose()
+	if !exists("s:term_buffer")
+		return 0
+	endif
+	call term_sendkeys(s:term_buffer, "exit()\n")
+	execute 'sleep 100 m'
+	call term_sendkeys(s:term_buffer, "exit\n")
+	execute 'sleep 100 m'
+	execute ':bdelete! ' . s:term_buffer
+	unlet s:term_buffer
+endfunction
+
+command ReplStart call ReplStart()
+command ReplClose call ReplClose()
+command ReplRestart call ReplClose() | call ReplStart()
 
 call plug#end()
